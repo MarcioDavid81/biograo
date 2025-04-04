@@ -3,8 +3,6 @@ import Hero from "./components/home/Hero";
 import ProductsSection from "./components/home/ProductsSection";
 import ContactCTA from "./components/home/ContactCTA";
 import { getContact, getHero, getNotices, getWelcome, getUniqueCategories } from "../../actions";
-import NoticeCard from "./components/notices/NoticeCard";
-import { format } from "date-fns";
 import { phoneFormat } from "../../utils";
 import { ChartLine, Warehouse, WheatIcon } from "lucide-react";
 import Welcome from "./components/home/Welcome";
@@ -12,6 +10,7 @@ import { ProductCarousel } from "./components/products/ProductCarousel";
 import ProductCarouselContent from "./components/products/ProductCarouselContent";
 import MarqueeBanner from "./components/home/Marquee";
 import { ClientFilteredNotices } from "./components/notices/ClientFilteredNotices";
+import ServiceCard from "./components/services/ServiceCard";
 
 
 export const metadata = {
@@ -19,6 +18,43 @@ export const metadata = {
   description:
     "Página inical da BioGrão Comércio Agrícola.",
 };
+
+const services = [
+  {
+    title: "Compra de Grãos",
+    description: "Oferecemos condições diferenciadas para a compra de grãos, garantindo o melhor valor para sua safra.",
+    icon: <WheatIcon />,
+    features: [
+      "Melhores preços do mercado",
+      "Pagamento facilitado",
+      "Transporte seguro e rápido",
+      "Acompanhamento da safra",
+      "Suporte técnico especializado",
+    ]
+  },
+  {
+    title: "Armazenagem",
+    description: "Contamos com estrutura moderna para armazenamento de grãos, garantindo a conservação da qualidade da sua produção.",
+    icon: <Warehouse />,
+    features: [
+      "Segurança e controle de temperatura",
+      "Monitoramento constante de pragas e fungos",
+      "Opção de armazenagem segregada",
+      "Relatórios periódicos de qualidade",
+    ]
+  },
+  {
+    title: "Consultoria Agrícola",
+    description: "Nossos especialistas oferecem consultoria personalizada para maximizar a produtividade e rentabilidade da sua propriedade.",
+    icon: <ChartLine />,
+    features: [
+      "Análise de solo e clima",
+      "Recomendações de cultivos",
+      "Planejamento estratégico",
+      "Acompanhamento técnico contínuo",
+    ]
+  }
+]
 
 export default async function Home() {
   const notices = await getNotices(); /* Notícias */
@@ -58,43 +94,15 @@ export default async function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Serviço 1 */}
-            <div className="bg-white rounded-lg shadow-md p-6 transition-transform hover:translate-y-[-5px]">
-              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mb-4">
-                <WheatIcon className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Compra de Grãos</h3>
-              <p className="text-gray-600">
-                Adquirimos sua produção de soja, trigo e milho com os melhores
-                preços do mercado e pagamento facilitado.
-              </p>
-            </div>
-
-            {/* Serviço 2 */}
-            <div className="bg-white rounded-lg shadow-md p-6 transition-transform hover:translate-y-[-5px]">
-              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mb-4">
-                <Warehouse className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Armazenagem</h3>
-              <p className="text-gray-600">
-                Oferecemos estrutura de armazenagem com tecnologia de ponta para
-                preservar a qualidade dos seus grãos.
-              </p>
-            </div>
-
-            {/* Serviço 3 */}
-            <div className="bg-white rounded-lg shadow-md p-6 transition-transform hover:translate-y-[-5px]">
-              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mb-4">
-                <ChartLine className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                Consultoria Agrícola
-              </h3>
-              <p className="text-gray-600">
-                Orientação técnica para melhorar sua produtividade e
-                rentabilidade, com profissionais especializados.
-              </p>
-            </div>
+            {services.map((service, index) => (
+              <ServiceCard
+                key={index}
+                title={service.title}
+                description={service.description}
+                icon={service.icon}
+                features={service.features}
+              />
+            ))}
           </div>
 
           <div className="text-center mt-10">

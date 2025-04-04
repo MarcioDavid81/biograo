@@ -1,4 +1,7 @@
+"use client"
+
 import React, { ReactNode } from 'react';
+import { motion } from "motion/react"
 
 interface ServiceCardProps {
   title: string;
@@ -14,7 +17,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   features,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <motion.div
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1, decelerate: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
       <div className="p-6">
         <div className="flex items-center mb-4">
           <div className="bg-blue-100 p-3 rounded-full mr-4">
@@ -52,7 +64,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </ul>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

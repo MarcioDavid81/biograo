@@ -1,4 +1,7 @@
+"use client";
+
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const ProductsSection = () => {
   const products = [
@@ -29,7 +32,15 @@ const ProductsSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((product, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <motion.div            
+              key={index} className="bg-white rounded-lg shadow-md overflow-hidden"
+              initial={{ opacity: 0, y: -50, scale: 0.8 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <div className="relative h-64">
                 <Image 
                   src={product.image}
@@ -42,7 +53,7 @@ const ProductsSection = () => {
                 <h3 className="text-xl font-semibold mb-3 text-primary">{product.name}</h3>
                 <p className="text-gray-600">{product.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
