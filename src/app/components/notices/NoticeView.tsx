@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { getNotices } from "../../../../actions";
 import NoticeCard from "./NoticeCard";
-import { format } from "date-fns";
 import { dateFormat } from "../../../../utils";
 
 export default function NoticeView() {

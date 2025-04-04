@@ -2,7 +2,7 @@ import Link from "next/link";
 import Hero from "./components/home/Hero";
 import ProductsSection from "./components/home/ProductsSection";
 import ContactCTA from "./components/home/ContactCTA";
-import { getContact, getHero, getNotices, getWelcome } from "../../actions";
+import { getContact, getHero, getNotices, getWelcome, getUniqueCategories } from "../../actions";
 import NoticeCard from "./components/notices/NoticeCard";
 import { format } from "date-fns";
 import { phoneFormat } from "../../utils";
@@ -11,6 +11,7 @@ import Welcome from "./components/home/Welcome";
 import { ProductCarousel } from "./components/products/ProductCarousel";
 import ProductCarouselContent from "./components/products/ProductCarouselContent";
 import MarqueeBanner from "./components/home/Marquee";
+import { ClientFilteredNotices } from "./components/notices/ClientFilteredNotices";
 
 
 export const metadata = {
@@ -27,6 +28,7 @@ export default async function Home() {
   const contact = contacts[0].acf; /* Contato Position */
   const welcomes = await getWelcome(); /* Boas-vindas */
   const welcome = welcomes[0].acf; /* Boas-vindas Position */
+  const categories = await getUniqueCategories(); /* Categorias */
 
   return (
     <>
@@ -110,20 +112,7 @@ export default async function Home() {
           <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
             Acompanhe as notícias mais recentes sobre o setor agrícola.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-center justify-center group-[&>*]:">
-            {notices.slice(0, 3).map((notice: any) => (
-              <NoticeCard
-                key={notice.id}
-                thumbnail={notice.acf.thumbnail}
-                title={notice.title.rendered}
-                subtitle={notice.acf.subtitle}
-                date={`Postado dia: ${format(new Date(notice.date), "dd/MM/yyyy")}`}
-                author={`Por: ${notice.acf.author.data.display_name}`}
-                btnLabel="Leia Mais"
-                href={`/notices/${notice.acf.slug}`}
-              />
-            ))}
-          </div>
+          <ClientFilteredNotices notices={notices} categories={categories} />
           <div className="text-center mt-10">
             <Link href="/notices" className="btn bg-lime-500 text-white">
               Ver todas as notícias

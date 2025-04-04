@@ -12,9 +12,11 @@ export type Product = {
 };
 
 export type Notice = {
+  id: number;
   title: { rendered: string };
   date: string;
   acf: {
+    slug: string;
     content: string;
     thumbnail: string;
     subtitle: string;

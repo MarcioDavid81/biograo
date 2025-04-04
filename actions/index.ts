@@ -31,6 +31,14 @@ export async function getNoticeBySlug(params: { slug: string }): Promise<Notice 
   return data[0];
 }
 
+export async function getUniqueCategories(): Promise<string[]> {
+  const notices = await getNotices();
+  const categories = notices.map(notice => notice.acf.category.name);
+  const uniqueCategories = Array.from(new Set(categories));
+  return uniqueCategories;
+}
+
+
 export async function getProducts() {
   const res = await fetch("https://biograo.api-mdwebdeveloper.com/wp-json/wp/v2/products?acf_format=standard&_fields=id,title,date,slug,acf", {
     next: { revalidate: 60 }, // Cache por 60 segundos
