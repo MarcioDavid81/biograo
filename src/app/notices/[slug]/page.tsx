@@ -3,6 +3,7 @@ import { getNoticeBySlug } from "../../../../actions";
 import Image from "next/image";
 import notFound from "../../../../public/page-nf.jpg";
 import { Metadata } from "next";
+import { dateFormat } from "../../../../utils";
 
 interface NoticePageProps {
   params: { slug: string };
@@ -73,13 +74,13 @@ export default async function NoticePage({ params }: NoticePageProps) {
       )}
 
       {/* Metadata */}
-      <div className="flex items-center gap-4 text-gray-600 mb-6 text-xs">
-        <span>{new Date(notice.date).toLocaleDateString()}</span>
+      <div className="flex items-center gap-4 text-gray-600 font-extralight mb-6 text-xs">
+        <span>{`Data: ${dateFormat(notice.date)}`}</span>
         {notice.acf.author?.data?.display_name && (
           <span>Por: {notice.acf.author.data.display_name}</span>
         )}
         {notice.acf.category?.name && (
-          <span className="bg-lime-100 text-lime-800 px-2 py-1 rounded text-sm">
+          <span className=" text-lime-500 border border-lime-500 px-2 py-1 rounded-full">
             {notice.acf.category.name}
           </span>
         )}

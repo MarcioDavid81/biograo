@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getNotices } from "../../../../actions";
 import NoticeCard from "./NoticeCard";
 import { format } from "date-fns";
+import { dateFormat } from "../../../../utils";
 
 export default function NoticeView() {
   const [notices, setNotices] = useState<any[]>([]);
@@ -51,7 +52,7 @@ export default function NoticeView() {
                 thumbnail={notice.acf.thumbnail}
                 title={notice.title.rendered}
                 subtitle={notice.acf.subtitle}
-                date={`Data: ${format(new Date(notice.date), "dd/MM/yyyy")}`}
+                date={`Data: ${dateFormat(notice.date)}`}
                 category={`Categoria: ${notice.acf.category.name}`}
                 author={`Autor: ${notice.acf.author.data.display_name}`}
                 btnLabel="Leia Mais"

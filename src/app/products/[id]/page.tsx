@@ -26,7 +26,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <>
       {/* Header da página */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-600 opacity-90 text-white py-12 md:py-16">
+      <section className={`bg-gradient-to-r from-blue-900 to-blue-600 opacity-90 text-white py-12 md:py-16`}>
         <div className="container-custom w-[90%]">
           <div className="max-w-3xl">
             <h1 className="mb-4">{product.acf.name}</h1>
