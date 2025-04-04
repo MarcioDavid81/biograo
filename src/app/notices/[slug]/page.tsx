@@ -75,7 +75,7 @@ export default async function NoticePage({ params }: NoticePageProps) {
 
       {/* Metadata */}
       <div className="flex items-center gap-4 text-gray-600 font-extralight mb-6 text-xs">
-        <span>{`Data: ${dateFormat(notice.date)}`}</span>
+        <span>{`Postado dia: ${dateFormat(notice.date)}`}</span>
         {notice.acf.author?.data?.display_name && (
           <span>Por: {notice.acf.author.data.display_name}</span>
         )}

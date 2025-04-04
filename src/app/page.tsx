@@ -117,9 +117,8 @@ export default async function Home() {
                 thumbnail={notice.acf.thumbnail}
                 title={notice.title.rendered}
                 subtitle={notice.acf.subtitle}
-                date={`Data: ${format(new Date(notice.date), "dd/MM/yyyy")}`}
-                category={`Categoria: ${notice.acf.category.name}`}
-                author={`Autor: ${notice.acf.author.data.display_name}`}
+                date={`Postado dia: ${format(new Date(notice.date), "dd/MM/yyyy")}`}
+                author={`Por: ${notice.acf.author.data.display_name}`}
                 btnLabel="Leia Mais"
                 href={`/notices/${notice.acf.slug}`}
               />

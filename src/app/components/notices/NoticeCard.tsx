@@ -27,9 +27,8 @@ export default function NoticeCard({
         <h2 className="text-xl font-semibold">{title}</h2>
         <p className="truncate">{subtitle}</p>
         <div className="flex gap-4 mt-2">
-          <p className="mt-2 text-xs font-extralight text-gray-500">{category}</p>
+        <p className="mt-2 text-xs font-extralight text-gray-500">{date}</p>
           <p className="mt-2 text-xs font-extralight text-gray-500">{author}</p>
-          <p className="mt-2 text-xs font-extralight text-gray-500">{date}</p>
         </div>
         <div className="mt-6">
           <Link
