@@ -1,101 +1,179 @@
-import Image from "next/image";
+import Link from "next/link";
+import Hero from "./components/home/Hero";
+import ProductsSection from "./components/home/ProductsSection";
+import ContactCTA from "./components/home/ContactCTA";
+import { getContact, getHero, getNotices, getWelcome } from "../../actions";
+import NoticeCard from "./components/notices/NoticeCard";
+import { format } from "date-fns";
+import { phoneFormat } from "../../utils";
+import { ChartLine, Warehouse, WheatIcon } from "lucide-react";
+import Welcome from "./components/home/Welcome";
+import { ProductCarousel } from "./components/products/ProductCarousel";
+import ProductCarouselContent from "./components/products/ProductCarouselContent";
+import MarqueeBanner from "./components/home/Marquee";
 
-export default function Home() {
+
+export const metadata = {
+  title: "Home - BioGrão Comércio Agrícola",
+  description:
+    "Página inical da BioGrão Comércio Agrícola.",
+};
+
+export default async function Home() {
+  const notices = await getNotices(); /* Notícias */
+  const data = await getHero(); /* Hero List */
+  const hero = data[0].acf; /* Hero Position */
+  const contacts = await getContact(); /* Contatos */
+  const contact = contacts[0].acf; /* Contato Position */
+  const welcomes = await getWelcome(); /* Boas-vindas */
+  const welcome = welcomes[0].acf; /* Boas-vindas Position */
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <Hero
+        title={hero.title}
+        description={hero.description}
+        thumbnail={hero.thumbnail}
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Seção de Boas-vindas */}
+      <Welcome
+        title={welcome.title}
+        description={welcome.description}
+        txt_btn={welcome.txt_btn}
+      />
+
+      {/* Seção de Produtos */}
+      <ProductsSection />
+
+      {/* Seção de Serviços */}
+      <section className="section bg-gray-50">
+        <div className="container-custom w-[90%]">
+          <h2 className="text-primary mb-2 text-center">Nossos Serviços</h2>
+          <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+            Oferecemos uma variedade de serviços para atender às necessidades
+            dos produtores rurais.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Serviço 1 */}
+            <div className="bg-white rounded-lg shadow-md p-6 transition-transform hover:translate-y-[-5px]">
+              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mb-4">
+                <WheatIcon className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Compra de Grãos</h3>
+              <p className="text-gray-600">
+                Adquirimos sua produção de soja, trigo e milho com os melhores
+                preços do mercado e pagamento facilitado.
+              </p>
+            </div>
+
+            {/* Serviço 2 */}
+            <div className="bg-white rounded-lg shadow-md p-6 transition-transform hover:translate-y-[-5px]">
+              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mb-4">
+                <Warehouse className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Armazenagem</h3>
+              <p className="text-gray-600">
+                Oferecemos estrutura de armazenagem com tecnologia de ponta para
+                preservar a qualidade dos seus grãos.
+              </p>
+            </div>
+
+            {/* Serviço 3 */}
+            <div className="bg-white rounded-lg shadow-md p-6 transition-transform hover:translate-y-[-5px]">
+              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mb-4">
+                <ChartLine className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">
+                Consultoria Agrícola
+              </h3>
+              <p className="text-gray-600">
+                Orientação técnica para melhorar sua produtividade e
+                rentabilidade, com profissionais especializados.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/services" className="btn bg-lime-500 text-white">
+              Ver todos os serviços
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Seção de Notícias Recentes */}
+      <section className="section bg-white">
+        <div className="container-custom w-[90%] mx-auto flex flex-col mt-6">
+          <h2 className="text-primary mb-2 text-center">Últimas Notícias</h2>
+          <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+            Acompanhe as notícias mais recentes sobre o setor agrícola.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-center justify-center group-[&>*]:">
+            {notices.slice(0, 3).map((notice: any) => (
+              <NoticeCard
+                key={notice.id}
+                thumbnail={notice.acf.thumbnail}
+                title={notice.title.rendered}
+                subtitle={notice.acf.subtitle}
+                date={`Data: ${format(new Date(notice.date), "dd/MM/yyyy")}`}
+                category={`Categoria: ${notice.acf.category.name}`}
+                author={`Autor: ${notice.acf.author.data.display_name}`}
+                btnLabel="Leia Mais"
+                href={`/notices/${notice.acf.slug}`}
+              />
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/notices" className="btn bg-lime-500 text-white">
+              Ver todas as notícias
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Seção de Produtos em oferta */}
+      <section className="section bg-white">
+        <div className="container-custom w-[90%] mx-auto flex flex-col mt-6">
+          <h2 className="text-primary mb-2 text-center">Produtos em oferta</h2>
+          <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+            Confira as principais ofertas da loja.
+          </p>
+          
+          <div className="flex items-center justify-center group-[&>*]:">
+            <ProductCarousel>
+              <ProductCarouselContent />
+            </ProductCarousel>
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/products" className="btn bg-lime-500 text-white">
+              Ver todos os produtos
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Seção de Parceiros */}
+      <section className="section bg-white">
+        <div className="container-custom w-[90%] mx-auto flex flex-col mt-6">
+          <h2 className="text-primary mb-2 text-center">Parceiros</h2>
+          <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+            Conheça as empresas que confiam em nossos serviços.
+          </p>
+          <div className="flex items-center justify-center group-[&>*]:">
+            <MarqueeBanner />
+          </div>
+        </div>
+      </section>
+
+      {/* Seção CTA */}
+      <ContactCTA
+        title={contact.title}
+        description={contact.description}
+        thumbnail={contact.thumbnail}
+        phone={phoneFormat(contact.phone)}
+      />
+    </>
   );
 }
