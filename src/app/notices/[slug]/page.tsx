@@ -42,9 +42,19 @@ export default async function NoticePage({ params }: NoticePageProps) {
     );
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* Title */}
-      <h1 className="text-center mb-6">{notice.title.rendered}</h1>
+    <>
+    {/* Header da página */}
+    <section className="bg-gradient-to-r from-blue-900 to-blue-600 opacity-90 text-white py-12 md:py-16">
+        <div className="container-custom w-[90%]">
+          <div className="max-w-3xl">
+            <h1 className="mb-4">{notice.title.rendered}</h1>
+            <p className="text-lg opacity-90">
+              {notice.acf.category.name}
+            </p>
+          </div>
+        </div>
+      </section>
+      <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Thumbnail */}
       {notice.acf.thumbnail && (
         <div className="mb-1 rounded-t-lg overflow-hidden">
@@ -86,6 +96,7 @@ export default async function NoticePage({ params }: NoticePageProps) {
         </Link>
       </div>
     </div>
+    </>
   );
 }
 

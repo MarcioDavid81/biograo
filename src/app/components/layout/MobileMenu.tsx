@@ -43,7 +43,7 @@ const MobileMenu = ({ isOpen, onClose, navItems }: MobileMenuProps) => {
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive(item.href)
-                    ? 'bg-secondary text-white'
+                    ? 'bg-lime-500 text-white'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-primary'
                 }`}
                 onClick={onClose}
